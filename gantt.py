@@ -59,9 +59,9 @@ def createGantt(uploaded_file):
                 marker=dict(
                     color=stage_color_dict[row["Stage"]],
                     line=dict(color=stage_color_dict[row["Stage"]], width=1),
+                showlegend=False,
                 ),
             ),
-            showlegend=False,
         )
 
         # Overlay complation fraction bar
