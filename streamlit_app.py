@@ -21,8 +21,11 @@ if uploaded_file is not None:
         image_bytes = gantt.createGantt(uploaded_file)
 
 # Display the Gantt chart
-st.image(image_bytes, use_column_width=True) 
-
+if image_bytes.getbuffer().nbytes > 0:
+    st.image(image_bytes, use_column_width=True) 
+else:
+    st.error("Failed to generate Gantt chart image")
+    
 # Display download button
 st.download_button(
     label="Download Gantt Chart as PNG",
