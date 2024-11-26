@@ -56,8 +56,7 @@ def gantt(uploaded_file):
                 y=[row["Task"]],
                 base=row["DaysToStart"] + 1,
                 orientation="h",
-                marker=dict(color=stage_color_dict[row["Stage"]]),
-                line=dict(color=stage_color_dict[row["Stage"]], width=1),
+                marker=dict(color=stage_color_dict[row["Stage"]], line=dict(color=stage_color_dict[row["Stage"]], width=1)),
             ),
             hovertemplate=(
                 f"<b>Task:</b> {row['Task']} &nbsp;&nbsp;&nbsp;"
