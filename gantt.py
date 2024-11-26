@@ -123,14 +123,6 @@ def createGantt(uploaded_file):
             t=50,  # Top margin
             b=100,  # Bottom margin
         ),
-        hoverlabel=dict(  # Customise hover label
-            bgcolor="white",  # White background for readability
-            font_size=12,  # Set font size
-            font_family="Arial",  # Set font family
-            font_color="black",  # Set font colour
-            align="left",  # Align text to left
-            bordercolor="black",  # Set border colour
-        ),
     )
 
     GanttChart_out = GanttChart.to_image(format="png")
