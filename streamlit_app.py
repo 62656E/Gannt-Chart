@@ -18,7 +18,7 @@ uploaded_file = st.file_uploader("Choose xlsx file", type="xlsx", accept_multipl
 # Check if the file has been uploaded
 if uploaded_file is not None:
     with st.spinner("Creating Gantt Chart..."):
-        gantt_chart = gantt(uploaded_file)
+        gantt_chart = gantt.gantt(uploaded_file)
         with BytesIO() as output_bytes:
             gantt_chart.write_image(output_bytes, format="png")
             st.image(output_bytes)
