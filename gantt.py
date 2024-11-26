@@ -2,7 +2,7 @@ import pandas as pd
 import openpyxl as px
 import plotly.graph_objects as go
 from io import BytesIO
-import pio as pio
+import plotly.io as pio
 
 
 def createGantt(uploaded_file):
