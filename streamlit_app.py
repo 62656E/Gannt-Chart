@@ -17,18 +17,18 @@ uploaded_file = st.file_uploader("Choose xlsx file", type="xlsx", accept_multipl
 # Check if the file has been uploaded
 if uploaded_file is not None:
     with st.spinner("Creating Gantt Chart..."):
-        image_bytes = createGantt(uploaded_file)
+        img_bytes = createGantt(uploaded_file)
 
 # Display the Gantt chart
-if image_bytes.getbuffer().nbytes > 0:
-    st.image(image_bytes, use_column_width=True) 
+if img_bytes.getbuffer().nbytes > 0:
+    st.image(img_bytes, use_column_width=True) 
 else:
     st.error("Failed to generate Gantt chart image")
     
 # Display download button
 st.download_button(
     label="Download Gantt Chart as PNG",
-    data=image_bytes,
+    data=img_bytes,
     file_name="gantt_chart.png",
     mime="image/png"
 )
