@@ -9,7 +9,7 @@ st.title("Gantt Chart Maker")
 
 # Prompt the user with the file format and purpose of the app
 st.markdown("""
-This app allows you to create a Gantt chart using the `plotly` library. Please upload an xlsx file with the following columns; Task, Stage, StartDate, EndDate, CompletionFrac and Title. To customise stage colours, add a column named `StageColor` with the colour of the stage in hex format. To customise legend order, add a column named 'LegendOrder' with the order of the legend.
+This app allows you to create a Gantt chart using the `plotly` library. Please upload an xlsx file with the following columns; Task, Stage, StartDate, EndDate, CompletionFrac and Title. To customise stage colours, add a column named `StageColor` with the colour of the stage in hex format. To customise legend order, add a column named `LegendOrder` with the order of the legend.
 """)
 
 # Upload the xlsx file
