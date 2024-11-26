@@ -61,14 +61,6 @@ def createGantt(uploaded_file):
                     line=dict(color=stage_color_dict[row["Stage"]], width=1),
                 ),
             ),
-            hovertemplate=(
-                f"<b>Task:</b> {row['Task']} &nbsp;&nbsp;&nbsp;"
-                f"<b>Stage:</b> {row['Stage']} &nbsp;&nbsp;&nbsp;"
-                f"<b>Start Date:</b> {row['StartDate'].date()} &nbsp;&nbsp;&nbsp;"
-                f"<b>End Date:</b> {row['EndDate'].date()} &nbsp;&nbsp;&nbsp;"
-                f"<b>Completion:</b> {row['CompletionFrac'] * 100:.0f}% &nbsp;&nbsp;&nbsp;"
-                f"<b>Duration:</b> {row['Duration']} days <extra></extra>"
-            ),
             showlegend=False,
         )
 
