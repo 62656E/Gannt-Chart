@@ -2,7 +2,6 @@ import pandas as pd
 import openpyxl as px
 import plotly.graph_objects as go
 
-
 def createGantt(uploaded_file):
     # Create dataframe from the uploaded file
     data = pd.read_excel(uploaded_file, engine="openpyxl")
@@ -37,7 +36,7 @@ def createGantt(uploaded_file):
     # Get title of the Gantt chart
     title = data["Title"].unique()
 
-    #  Get max and min values for x axis
+    # Get max and min values for x axis
     x_tick_start = data["StartDate"].min()
     x_tick_end = data["EndDate"].max()
     max_x = (data["EndDate"].max() - x_tick_start).days
@@ -64,10 +63,10 @@ def createGantt(uploaded_file):
             ),
         )
 
-        # Overlay complation fraction bar
+        # Overlay completion fraction bar
         GanttChart.add_trace(
             go.Bar(
-                x=data[row["CompletionDays"]],
+                x=[row["CompletionDays"]],  # Use CompletionDays directly
                 y=[row["Task"]],
                 base=row["DaysToStart"] + 1,
                 orientation="h",
@@ -103,10 +102,8 @@ def createGantt(uploaded_file):
         xaxis=dict(  # Customise x axis
             title="Date",  # Add x axis title
             showgrid=True,  # Show gridlines
-            tickvals=x_tick_vals.map(
-                lambda x: (x - x_tick_start).days
-            ),  # Set tick values
-        ),  # Convert to days from start date
+            tickvals=(x_tick_vals - x_tick_start).days,  # Convert dates to days
+        ),
         yaxis=dict(  # Customise y axis
             title="Tasks",  # Add y axis title
             automargin=True,  # Automatically adjust margin
