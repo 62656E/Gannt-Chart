@@ -3,9 +3,9 @@ import openpyxl as px
 import plotly.graph_objects as go
 
 
-def gantt(uploaded_file):
+def createGantt(uploaded_file):
     # Create dataframe from the uploaded file
-    data = pd.read_excel(uploaded_file, engine='openpyxl')
+    data = pd.read_excel(uploaded_file, engine="openpyxl")
 
     # Convert the StartDate and EndDate columns to datetime
     data["StartDate"] = pd.to_datetime(data["StartDate"])
@@ -56,7 +56,10 @@ def gantt(uploaded_file):
                 y=[row["Task"]],
                 base=row["DaysToStart"] + 1,
                 orientation="h",
-                marker=dict(color=stage_color_dict[row["Stage"]], line=dict(color=stage_color_dict[row["Stage"]], width=1)),
+                marker=dict(
+                    color=stage_color_dict[row["Stage"]],
+                    line=dict(color=stage_color_dict[row["Stage"]], width=1),
+                ),
             ),
             hovertemplate=(
                 f"<b>Task:</b> {row['Task']} &nbsp;&nbsp;&nbsp;"
@@ -137,7 +140,6 @@ def gantt(uploaded_file):
             bordercolor="black",  # Set border colour
         ),
     )
-    
-    GanttChart_out = GanttChart.to_image(format="png")                                
+
+    GanttChart_out = GanttChart.to_image(format="png")
     return GanttChart_out
-        
