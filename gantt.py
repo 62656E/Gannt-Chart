@@ -23,18 +23,18 @@ def createGantt(uploaded_file):
     data["CompletionDays"] = data["CompletionFrac"] * data["Duration"]
 
     # Create stage colour dictionary
-    stage_color_dict = dict(zip(data["Stage"].unique(), data["StageColor"].unique()))
+    stage_color_dict = dict(zip(data["Stage"].dropna.unique(), data["StageColor"].dropna.unique()))
 
     # Create legend order list
-    legend_order = data["LegendOrder"].unique()
+    legend_order = data["LegendOrder"].dropna.unique()
 
     # Create legend order dictionary with legend order as key and corresponding stage color as value
     legend_order_dict = dict(
-        zip(data["LegendOrder"].unique(), data["StageColor"].unique())
+        zip(data["LegendOrder"].dropna.unique(), data["StageColor"].dropna.unique())
     )
 
     # Get title of the Gantt chart
-    title = data["Title"].unique()
+    title = data["Title"].dropna.unique()
 
     # Get max and min values for x axis
     x_tick_start = data["StartDate"].min()
