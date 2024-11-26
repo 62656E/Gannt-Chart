@@ -23,32 +23,31 @@ def createGantt(uploaded_file):
     data["CompletionDays"] = data["CompletionFrac"] * data["Duration"]
 
     # Create stage colour dictionary
-    stage_color_dict = dict(zip(data["Stage"].dropna.unique(), data["StageColor"].dropna.unique()))
+    stage_color_dict = dict(zip(data["Stage"].dropna().unique(), data["StageColor"].dropna().unique()))
 
     # Create legend order list
-    legend_order = data["LegendOrder"].dropna.unique()
+    legend_order = data["LegendOrder"].dropna().unique()
 
     # Create legend order dictionary with legend order as key and corresponding stage color as value
-    legend_order_dict = dict(
-        zip(data["LegendOrder"].dropna.unique(), data["StageColor"].dropna.unique())
-    )
+    legend_order_dict = dict(zip(data["LegendOrder"].dropna().unique(), data["StageColor"].dropna().unique()))
 
     # Get title of the Gantt chart
-    title = data["Title"].dropna.unique()
+    title = data["Title"].dropna().unique()[0]  # Ensure title is a string
 
     # Get max and min values for x axis
     x_tick_start = data["StartDate"].min()
     x_tick_end = data["EndDate"].max()
-    max_x = (data["EndDate"].max() - x_tick_start).days
 
     # Create ticks for x axis
     x_tick_vals = pd.date_range(start=x_tick_start, end=x_tick_end, freq="MS")
+    tickvals = (x_tick_vals - x_tick_start).days
 
     # Create figure
     GanttChart = go.Figure()
 
     # Plot each task as a bar with overlay for completion fraction
     for index, row in data.iterrows():
+        # Add the main task bar
         GanttChart.add_trace(
             go.Bar(
                 x=[row["Duration"]],
@@ -66,7 +65,7 @@ def createGantt(uploaded_file):
         # Overlay completion fraction bar
         GanttChart.add_trace(
             go.Bar(
-                x=[row["CompletionDays"]],  # Use CompletionDays directly
+                x=[row["CompletionDays"]],
                 y=[row["Task"]],
                 base=row["DaysToStart"] + 1,
                 orientation="h",
@@ -84,12 +83,13 @@ def createGantt(uploaded_file):
                 mode="markers",
                 marker=dict(color=color, size=10),
                 name=stage,
+                showlegend=True,  # Make sure it's shown in the legend
             )
         )
 
     # Update layout
     GanttChart.update_layout(
-        legend=dict(  # Customise legend
+        legend=dict(  # Customize legend
             orientation="v",  # Vertical orientation
             yanchor="top",  # Anchor legend to top
             y=1,  # Position legend at top
@@ -98,13 +98,13 @@ def createGantt(uploaded_file):
             bgcolor="rgba(255, 255, 255, 0.5)",  # Semi-transparent white background for readability
         ),
         title=title,  # Add title
-        title_x=0.5,  # Centre title
-        xaxis=dict(  # Customise x axis
+        title_x=0.5,  # Center title
+        xaxis=dict(  # Customize x axis
             title="Date",  # Add x axis title
             showgrid=True,  # Show gridlines
-            tickvals=(x_tick_vals - x_tick_start).days,  # Convert dates to days
+            tickvals=tickvals,  # Set tick values as days
         ),
-        yaxis=dict(  # Customise y axis
+        yaxis=dict(  # Customize y axis
             title="Tasks",  # Add y axis title
             automargin=True,  # Automatically adjust margin
             autorange="reversed",  # Reverse order of tasks
@@ -122,5 +122,6 @@ def createGantt(uploaded_file):
         ),
     )
 
+    # Convert chart to image
     GanttChart_out = GanttChart.to_image(format="png")
     return GanttChart_out
