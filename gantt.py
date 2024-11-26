@@ -1,6 +1,9 @@
 import pandas as pd
 import openpyxl as px
 import plotly.graph_objects as go
+from io import BytesIO
+import pio as pio
+
 
 def createGantt(uploaded_file):
     # Create dataframe from the uploaded file
@@ -122,6 +125,9 @@ def createGantt(uploaded_file):
         ),
     )
 
-    # Convert chart to image
-    GanttChart_out = GanttChart.to_image(format="png")
-    return GanttChart_out
+     # Convert figure to image in memory using BytesIO
+    img_bytes = BytesIO()
+    pio.write_image(GanttChart, img_bytes, format="png")
+    img_bytes.seek(0)  # Rewind the BytesIO object to the beginning
+
+    return img_bytes
