@@ -59,8 +59,8 @@ def createGantt(uploaded_file):
                 marker=dict(
                     color=stage_color_dict[row["Stage"]],
                     line=dict(color=stage_color_dict[row["Stage"]], width=1),
-                showlegend=False,
                 ),
+                showlegend=False,
             ),
         )
 
@@ -104,7 +104,7 @@ def createGantt(uploaded_file):
             title="Date",  # Add x axis title
             showgrid=True,  # Show gridlines
             tickvals=x_tick_vals.map(
-                lambda x: (x - tick_start).days
+                lambda x: (x - x_tick_start).days
             ),  # Set tick values
         ),  # Convert to days from start date
         yaxis=dict(  # Customise y axis
