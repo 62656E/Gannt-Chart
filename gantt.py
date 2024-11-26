@@ -130,4 +130,4 @@ def createGantt(uploaded_file):
     pio.write_image(GanttChart, img_bytes, format="png")
     img_bytes.seek(0)  # Rewind the BytesIO object to the beginning
 
-    return img_bytes
+    return(img_bytes)  # Return the image bytes

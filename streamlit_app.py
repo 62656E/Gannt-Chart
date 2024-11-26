@@ -1,8 +1,7 @@
 # Import necessary libraries
 import streamlit as st 
 from io import BytesIO
-import gantt 
-
+from gantt import createGantt 
 
 # Title streamlit app
 st.title("Gantt Chart Maker")
@@ -18,7 +17,7 @@ uploaded_file = st.file_uploader("Choose xlsx file", type="xlsx", accept_multipl
 # Check if the file has been uploaded
 if uploaded_file is not None:
     with st.spinner("Creating Gantt Chart..."):
-        image_bytes = gantt.createGantt(uploaded_file)
+        image_bytes = createGantt(uploaded_file)
 
 # Display the Gantt chart
 if image_bytes.getbuffer().nbytes > 0:
