@@ -14,9 +14,6 @@ This app allows you to create a Gantt chart using the `plotly` library. Please u
 # Upload the xlsx file
 uploaded_file = st.file_uploader("Choose xlsx file", type="xlsx", accept_multiple_files=False)
 
-
-
-
 # Check if the file has been uploaded
 if uploaded_file is not None:
     with st.spinner("Creating Gantt Chart..."):
