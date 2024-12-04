@@ -20,15 +20,12 @@ uploaded_file = st.file_uploader("Choose xlsx file", type="xlsx", accept_multipl
 # Check if the file has been uploaded
 if uploaded_file is not None:
     with st.spinner("Creating Gantt Chart..."):
-        img_bytes = createGantt(uploaded_file)
+        img_bytes, GanttChart = createGantt(uploaded_file)
 else:
     st.write("Please upload an xlsx file")
 
 # Display the Gantt chart
-if img_bytes.getbuffer().nbytes > 0:
-    st.image(img_bytes, use_column_width=True) 
-else:
-    st.error("Failed to generate Gantt chart image")
+st.plotly_chart(GanttChart)
     
 # Display download button
 st.download_button(

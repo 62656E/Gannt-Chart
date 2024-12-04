@@ -6,6 +6,16 @@ import plotly.io as pio
 
 
 def createGantt(uploaded_file):
+    """
+    A function createGantt that takes an uploaded file and returns a Gantt chart image, dynamically adjusting height and width based on number of tasks and length of time respectively.
+
+    Parameters:
+    uploaded_file (xlsx): An uploaded xlsx file containing the following columns; Task, Stage, StartDate, EndDate, CompletionFrac, Title, StageColor, LegendOrder
+
+    Returns:
+    img_bytes (BytesIO): An image of the Gantt chart in Bytes
+    GanttChart (plotly.graph_objects.Figure): A Gantt chart figure
+    """
     # Create dataframe from the uploaded file
     data = pd.read_excel(uploaded_file, engine="openpyxl")
 
@@ -26,13 +36,17 @@ def createGantt(uploaded_file):
     data["CompletionDays"] = data["CompletionFrac"] * data["Duration"]
 
     # Create stage colour dictionary
-    stage_color_dict = dict(zip(data["Stage"].dropna().unique(), data["StageColor"].dropna().unique()))
+    stage_color_dict = dict(
+        zip(data["Stage"].dropna().unique(), data["StageColor"].dropna().unique())
+    )
 
     # Create legend order list
     legend_order = data["LegendOrder"].dropna().unique()
 
     # Create legend order dictionary with legend order as key and corresponding stage color as value
-    legend_order_dict = dict(zip(data["LegendOrder"].dropna().unique(), data["StageColor"].dropna().unique()))
+    legend_order_dict = dict(
+        zip(data["LegendOrder"].dropna().unique(), data["StageColor"].dropna().unique())
+    )
 
     # Get title of the Gantt chart
     title = data["Title"].dropna().unique()[0]  # Ensure title is a string
@@ -47,7 +61,7 @@ def createGantt(uploaded_file):
 
     # Create figure
     GanttChart = go.Figure()
-    
+
     # Calculate chart dimensions based on number of tasks and length of time
     chart_height = 50 + 50 * len(data["Task"])
     chart_width = 1000 + 10 * data["DaysToEnd"].max()
@@ -110,8 +124,8 @@ def createGantt(uploaded_file):
             title="Date",  # Add x axis title
             showgrid=True,  # Show gridlines
             tickvals=tickvals,  # Set tick values as days
-        height = chart_height,  # Set chart height
-        width = chart_width,  # Set chart width
+            height=chart_height,  # Set chart height
+            width=chart_width,  # Set chart width
         ),
         yaxis=dict(  # Customize y axis
             title="Tasks",  # Add y axis title
@@ -131,9 +145,9 @@ def createGantt(uploaded_file):
         ),
     )
 
-     # Convert figure to image in memory using BytesIO
+    # Convert figure to image in memory using BytesIO
     img_bytes = BytesIO()
     pio.write_image(GanttChart, img_bytes, format="png")
     img_bytes.seek(0)  # Rewind the BytesIO object to the beginning
 
-    return img_bytes  # Return the image bytes
+    return img_bytes, GanttChart  # Return the image bytes and the Gantt chart figure
