@@ -124,8 +124,8 @@ def createGantt(uploaded_file):
             title="Date",  # Add x axis title
             showgrid=True,  # Show gridlines
             tickvals=tickvals,  # Set tick values as days
-            height=chart_height,  # Set chart height
-            width=chart_width,  # Set chart width
+            chart_height=chart_height,  # Set chart height
+            chart_width=chart_width,  # Set chart width
         ),
         yaxis=dict(  # Customize y axis
             title="Tasks",  # Add y axis title
