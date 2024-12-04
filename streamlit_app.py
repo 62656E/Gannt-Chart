@@ -14,11 +14,7 @@ This app allows you to create a Gantt chart using the `plotly` library. Please u
 # Upload the xlsx file
 uploaded_file = st.file_uploader("Choose xlsx file", type="xlsx", accept_multiple_files=False)
 
-height = st.number_input("Enter the height of the Gantt chart", value=1000)
-width = st.number_input("Enter the width of the Gantt chart", value=2000)
-title = st.text_input("Enter the title of the Gantt chart", value="Gantt Chart")
-title_font_size = st.number_input("Enter the title font size", value=20)
-axis_label_font_size = st.number_input("Enter the axis label font size", value=15)
+
 
 
 # Check if the file has been uploaded

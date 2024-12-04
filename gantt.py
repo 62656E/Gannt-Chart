@@ -47,6 +47,10 @@ def createGantt(uploaded_file):
 
     # Create figure
     GanttChart = go.Figure()
+    
+    # Calculate chart dimensions based on number of tasks and length of time
+    chart_height = 50 + 50 * len(data["Task"])
+    chart_width = 1000 + 10 * data["DaysToEnd"].max()
 
     # Plot each task as a bar with overlay for completion fraction
     for index, row in data.iterrows():
@@ -106,6 +110,8 @@ def createGantt(uploaded_file):
             title="Date",  # Add x axis title
             showgrid=True,  # Show gridlines
             tickvals=tickvals,  # Set tick values as days
+        height = chart_height,  # Set chart height
+        width = chart_width,  # Set chart width
         ),
         yaxis=dict(  # Customize y axis
             title="Tasks",  # Add y axis title
