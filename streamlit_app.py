@@ -1,7 +1,8 @@
 # Import necessary libraries
 import streamlit as st 
 from io import BytesIO
-from gantt import createGantt 
+from gantt import createGantt
+import plotly as py
 
 # Title streamlit app
 st.title("Gantt Chart Maker")
