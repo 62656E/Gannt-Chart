@@ -141,8 +141,8 @@ def createGantt(uploaded_file):
             t=50,  # Top margin
             b=100,  # Bottom margin
         ),
-        chart_height=chart_height,  # Set chart height
-        chart_width=chart_width,  # Set chart width
+        height=chart_height,  # Set chart height
+        width=chart_width,  # Set chart width
     )
 
     # Convert figure to image in memory using BytesIO
