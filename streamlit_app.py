@@ -19,6 +19,9 @@ uploaded_file = st.file_uploader(
     "Choose xlsx file", type="xlsx", accept_multiple_files=False
 )
 
+image_bytes = None
+GanttChart = None
+
 # Check if the file has been uploaded
 if uploaded_file is not None:
     with st.spinner("Creating Gantt Chart..."):
