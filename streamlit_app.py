@@ -30,7 +30,7 @@ else:
     st.write("Please upload an xlsx file")
 
 # Display the Gantt chart if it has been created
-if GanttChart is type(py.graph_objs._figure.Figure):
+if GanttChart:
     st.plotly_chart(GanttChart)
 elif img_bytes is type(BytesIO):
     st.image(img_bytes)
