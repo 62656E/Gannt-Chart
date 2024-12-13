@@ -18,6 +18,9 @@ def create_gantt(uploaded_file):
     # Load data from the uploaded file
     data = pd.read_excel(uploaded_file, engine="openpyxl")
 
+    # Drop tasks missing dates to prevent NaN values in the legend or chart
+    data = data.dropna(subset=["StartDate", "EndDate"])
+
     # Convert date columns to datetime format
     data["StartDate"] = pd.to_datetime(data["StartDate"])
     data["EndDate"] = pd.to_datetime(data["EndDate"])
