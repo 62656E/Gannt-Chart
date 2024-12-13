@@ -29,7 +29,6 @@ def create_gantt(uploaded_file):
 
     # Create a mapping for stage colors
     stage_color_dict = dict(zip(data["Stage"], data["StageColor"]))
-    legend_order_dict = dict(zip(data["LegendOrder"], data["StageColor"]))
 
     # Extract chart title
     title = data["Title"].iloc[0]
@@ -47,7 +46,7 @@ def create_gantt(uploaded_file):
 
     # Dynamic chart sizing
     chart_height = max(400, 50 + 20 * len(data))  # Minimum height 400
-    chart_width = max(1000, 200 * (x_tick_end - x_tick_start).days // 30)  # Minimum width 1000
+    chart_width = max(1000, 100 * (x_tick_end - x_tick_start).days // 30)  # Minimum width 1000
 
     # Add tasks to the chart
     for _, row in data.iterrows():
@@ -82,15 +81,25 @@ def create_gantt(uploaded_file):
             )
         )
 
-    # Add legend entries
-    for legend, color in legend_order_dict.items():
+    # Sort data by StartDate to determine the legend order
+    data_sorted_by_start = data.sort_values(by="StartDate")
+
+    # Create a unique list of (Stage, StageColor) tuples in chronological order
+    legend_order = (
+        data_sorted_by_start[["Stage", "StageColor"]]
+        .drop_duplicates()
+        .values.tolist()
+    )
+
+    # Add legend entries based on the chronological order
+    for stage, color in legend_order:
         gantt_chart.add_trace(
             go.Scatter(
                 x=[None],
                 y=[None],
                 mode="markers",
                 marker=dict(color=color, size=10),
-                name=legend,
+                name=stage,
             )
         )
 
