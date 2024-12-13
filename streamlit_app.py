@@ -1,7 +1,7 @@
 # Import necessary libraries
 import streamlit as st
 from io import BytesIO
-from gantt import create_Gantt
+from gantt import create_gantt
 
 # Title of the Streamlit app
 st.title("Gantt Chart Maker")
@@ -34,7 +34,7 @@ if uploaded_file:
     with st.spinner("Creating Gantt Chart..."):
         try:
             # Generate the Gantt chart and image
-            img_bytes, GanttChart = create_Gantt(uploaded_file)
+            img_bytes, GanttChart = create_gantt(uploaded_file)
         except Exception as e:
             st.error(f"Error creating Gantt Chart: {e}")
 
