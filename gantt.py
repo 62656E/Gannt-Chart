@@ -49,7 +49,7 @@ def create_gantt(uploaded_file):
 
     # Dynamic chart sizing
     chart_height = max(400, 50 + 20 * len(data))  # Minimum height 400
-    chart_width = max(1000, 50 * (x_tick_end - x_tick_start).days // 30)  # Minimum width 1000
+    chart_width = max(1000, 100 * (x_tick_end - x_tick_start).days // 30)  # Minimum width 1000
 
     # Add tasks to the chart
     for _, row in data.iterrows():
@@ -132,13 +132,14 @@ def create_gantt(uploaded_file):
             tickvals=data["Task"],
             ticktext=data["Task"],
             tickfont=dict(size=15),
+            title_standoff=20,
         ),
         barmode="stack",
         bargap=0.1,
         hovermode="closest",
         height=chart_height,
         width=chart_width,
-        margin=dict(l=150, r=50, t=50, b=100),
+        margin=dict(l=180, r=50, t=50, b=100),
         hoverlabel=dict(
             bgcolor="white",
             font_size=12,
