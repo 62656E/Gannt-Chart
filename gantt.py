@@ -47,7 +47,7 @@ def create_gantt(uploaded_file):
 
     # Dynamic chart sizing
     chart_height = max(400, 50 + 20 * len(data))  # Minimum height 400
-    chart_width = max(1000, 100 * (x_tick_end - x_tick_start).days // 30)  # Minimum width 1000
+    chart_width = max(1000, 200 * (x_tick_end - x_tick_start).days // 30)  # Minimum width 1000
 
     # Add tasks to the chart
     for _, row in data.iterrows():
